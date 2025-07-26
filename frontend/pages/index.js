@@ -5,13 +5,18 @@ import { motion } from 'framer-motion';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import ParticleBackground from '../components/ParticleBackground';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const { query } = useRouter();
+  const isPreview = query.preview === 'true';
+
   return (
     <div className="min-h-screen flex flex-col font-sans relative bg-gradient-to-br from-[#ffffff] to-[#3B5998] text-[#2C6CA4]">
       <ParticleBackground />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/30 pointer-events-none z-0" />
-      <Header />
+      
+      {!isPreview && <Header />}
       <main className="main-content flex-1 flex flex-col items-center justify-center px-4 sm:px-8 md:px-20 pt-20 pb-16 gap-12 z-10 text-center overflow-hidden">
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-4xl mx-auto relative z-10">
           <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-[#2C6CA4] text-center" style={{ lineHeight: '1.2' }}>
@@ -92,6 +97,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      
       <section className="py-8 px-4 bg-[#E6F0FA]/30 backdrop-blur-sm border border-[#2C6CA4]/20 rounded-xl p-6 z-10 overflow-hidden rounded-3xl max-w-xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-6 text-[#2C6CA4]">Partners</h2>
         <motion.div
@@ -111,7 +117,9 @@ export default function Home() {
           ))}
         </motion.div>
       </section>
-      <Footer />
+      
+{!isPreview && <Footer />}
+      
     </div>
   );
 }

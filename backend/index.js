@@ -163,7 +163,7 @@ app.post('/api/components', async (req, res) => {
 app.get('/api/static-pages', async (req, res) => {
   const readdir = util.promisify(fs.readdir);
   try {
-    const pagesDir = path.join( 'frontend', 'pages'); // Adjust if needed
+    const pagesDir = path.join(__dirname, '../frontend/pages');
     const files = await readdir(pagesDir);
     const staticPages = files
       .filter(file => file.endsWith('.js') && !file.startsWith('_') && file !== 'admin.js')
